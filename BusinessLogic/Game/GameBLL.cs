@@ -1,14 +1,13 @@
 ﻿using Entities.AppContext;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Team
+namespace BusinessLogic.Game
 {
-    public class TeamBLL : ITeamBll
+    public class GameBLL : IGameBll
     {
         #region Fields
 
@@ -18,7 +17,7 @@ namespace BusinessLogic.Team
 
         #region Builder
 
-        public TeamBLL()
+        public GameBLL()
         {
             _context = new Context();
         }
@@ -30,27 +29,25 @@ namespace BusinessLogic.Team
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Entities.Entities.Team> Get()
+        public IEnumerable<Entities.Entities.Game> Get()
         {
-            var teamList = _context.Teams.ToList();
+            var gameList = _context.Games.ToList();
 
-            return teamList;
+            return gameList;
         }
 
-        public Entities.Entities.Team Get(string name)
+        public Entities.Entities.Game Get(int id)
         {
-            var team = _context.Teams.Where(t => t.Name == name).FirstOrDefault();
+            var user = _context.Games.Where(g => g.Id == id).ToList().FirstOrDefault();
 
-            return team;
+            return user;
         }
 
-        public void Post(Entities.Entities.Team value)
+        public void Post(Entities.Entities.Game value)
         {
-            var context = new Context();
+            _context.Games.Add(value);
 
-            context.Teams.Add(value);
-            
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Put(int id, string value)

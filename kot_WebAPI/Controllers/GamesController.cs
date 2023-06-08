@@ -1,40 +1,38 @@
-﻿using BusinessLogic.User;
+﻿using BusinessLogic.Game;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace kot_WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class GamesController : ControllerBase
     {
         #region Fields
 
-        private readonly IUserBll _usersBll;
+        private readonly IGameBll _gamesBll;
 
         #endregion
 
         #region Builder
 
-        public UsersController(IUserBll usersbll) 
+        public GamesController(IGameBll gamesBll)
         {
-            _usersBll = usersbll;
-        }    
+            _gamesBll = gamesBll;
+        }
 
         #endregion
 
 
         // GET: api/<UsersController>
-        [HttpGet("getAllUsers")]
+        [HttpGet("getAllGames")]
         public IActionResult Get()
         {
             try
             {
-                var usersList = _usersBll.Get();
-                return Ok(usersList);
+                var gamesList = _gamesBll.Get();
+
+                return Ok(gamesList);
             }
             catch (Exception ex)
             {
@@ -43,32 +41,30 @@ namespace kot_WebAPI.Controllers
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("getUserByEmail/{mail}")]
-        public IActionResult Get(string mail)
+        [HttpGet("getGameById/{id}")]
+        public IActionResult Get(int id)
         {
             try
             {
-                var user = _usersBll.Get(mail);
-                return Ok(user);
+                var game = _gamesBll.Get(id);
+
+                return Ok(game);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex);
-            }            
+            }
         }
 
         // POST api/<UsersController>
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User value)
+        public IActionResult Register([FromBody] Game value)
         {
             try
             {
-                if (null == value)
-                    return BadRequest();
+                _gamesBll.Post(value);
 
-                var result = _usersBll.Post(value);
-
-                return Ok(result);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -83,12 +79,12 @@ namespace kot_WebAPI.Controllers
         }
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{mail}")]
-        public IActionResult Delete(string mail)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             try
             {
-                _usersBll.Delete(mail);
+                _gamesBll.Delete(id);
 
                 return Ok();
             }

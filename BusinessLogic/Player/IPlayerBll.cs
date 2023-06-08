@@ -10,7 +10,7 @@ namespace BusinessLogic.Player
     {
         IEnumerable<Entities.Entities.Player> Get();
         Entities.Entities.Player Get(string nif);
-        void Post(Entities.Entities.Player value);
+        Entities.Entities.Player Post(Entities.Entities.Player value);
         void Put(int id, string value);
         void Delete(string nif);
     }

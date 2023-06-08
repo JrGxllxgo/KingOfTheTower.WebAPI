@@ -25,26 +25,50 @@ namespace kot_WebAPI.Controllers
         #endregion
 
         // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("getAllTeams")]
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var teamList = _teamsBll.Get();
+
+                return Ok(teamList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // GET api/TeamsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("getTeamByName/{name}")]
+        public IActionResult Get(string name)
         {
-            return "value";
+            try
+            {
+                var team = _teamsBll.Get(name);
+                return Ok(team);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // POST api/<TeamsController>
         [HttpPost("register")]
-        public void Post([FromBody] Team value)
+        public IActionResult Post([FromBody] Team value)
         {
-            var bll = new TeamBLL();
+            try
+            {
+                _teamsBll.Post(value);
 
-            bll.Post(value);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // PUT api/<TeamsController>/5
@@ -55,7 +79,7 @@ namespace kot_WebAPI.Controllers
 
         // DELETE api/<TeamsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string name)
         {
         }
     }

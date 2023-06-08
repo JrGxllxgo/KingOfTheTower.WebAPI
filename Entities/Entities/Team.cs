@@ -18,9 +18,14 @@ namespace Entities.Entities
 
         public bool Pay { get; set; }
 
-        public int wins { get; set; }
-        public int defeats { get; set; }
-        public int points_diff { get; set; }
-        public int classification_points { get; set;}
+        public int Wins { get; set; }
+
+        public int Defeats { get; set; }
+
+        public int Points_diff { get; set; }
+
+        public int Classification_points { get; set;}
+
+        public Group Group { get; set; }
     }
 }
