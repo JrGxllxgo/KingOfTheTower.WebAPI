@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230605165703_init")]
-    partial class init
+    [Migration("20230607183437_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,63 @@ namespace Entities.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Entities.Entities.Game", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Court")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Schedule")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Score1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Team1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Team2Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("Team1Id");
+
+                    b.HasIndex("Team2Id");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Groups");
+                });
 
             modelBuilder.Entity("Entities.Entities.Player", b =>
                 {
@@ -77,6 +134,15 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Classification_points")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Defeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -84,19 +150,15 @@ namespace Entities.Migrations
                     b.Property<bool>("Pay")
                         .HasColumnType("bit");
 
-                    b.Property<int>("classification_points")
+                    b.Property<int>("Points_diff")
                         .HasColumnType("int");
 
-                    b.Property<int>("defeats")
-                        .HasColumnType("int");
-
-                    b.Property<int>("points_diff")
-                        .HasColumnType("int");
-
-                    b.Property<int>("wins")
+                    b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Teams");
                 });
@@ -111,7 +173,7 @@ namespace Entities.Migrations
 
                     b.Property<string>("Mail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -126,9 +188,39 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Mail")
+                        .IsUnique();
+
                     b.HasIndex("PlayerId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Game", b =>
+                {
+                    b.HasOne("Entities.Entities.User", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Entities.Team", "Team1")
+                        .WithMany()
+                        .HasForeignKey("Team1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Entities.Team", "Team2")
+                        .WithMany()
+                        .HasForeignKey("Team2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("Team1");
+
+                    b.Navigation("Team2");
                 });
 
             modelBuilder.Entity("Entities.Entities.Player", b =>
@@ -140,6 +232,17 @@ namespace Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Team", b =>
+                {
+                    b.HasOne("Entities.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Entities.Entities.User", b =>

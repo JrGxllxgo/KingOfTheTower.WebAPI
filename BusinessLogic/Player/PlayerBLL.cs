@@ -1,7 +1,10 @@
-﻿using Entities.AppContext;
+﻿using Azure.Core;
+using Entities.AppContext;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,11 +45,29 @@ namespace BusinessLogic.Player
             return player;
         }
 
-        public void Post(Entities.Entities.Player value)
+        public Entities.Entities.Player Post(Entities.Entities.Player value)
         {
-            _context.Players.Add(value);
+            try
+            {
+                if (string.IsNullOrEmpty(value.NIF))
+                    throw new Exception("El DNI del jugador no puede ser nulo/vacio:");
 
-            _context.SaveChanges();
+                // TO DO - Meter expresión regular para comprobar NIF (nos podemos
+                // fijar en la API, solo un poquito)
+                if (value.NIF.Length != 9)
+                    throw new Exception("El formato del DNI no es correcto.");
+
+                // Guardamos el jugador:
+                var result  = _context.Players.Add(value);
+                _context.SaveChanges();
+
+                return result.Entity; 
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }           
         }
 
         public void Put(int id, string value)
