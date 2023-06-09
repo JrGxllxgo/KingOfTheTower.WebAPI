@@ -44,6 +44,13 @@ namespace BusinessLogic.Team
             return team;
         }
 
+        public IEnumerable<Entities.Entities.Team> GetByGroup(string groupName)
+        {
+            var teams = _context.Teams.Where(g => g.Group.Name == groupName).AsNoTracking();
+
+            return teams;
+        }
+
         public void Post(Entities.Entities.Team value)
         {
             var context = new Context();

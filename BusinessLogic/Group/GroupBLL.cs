@@ -1,4 +1,5 @@
 ﻿using Entities.AppContext;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,11 +45,37 @@ namespace BusinessLogic.Group
             return groupSelected;
         }
 
-        public void Post(Entities.Entities.Group value)
+        public Entities.Entities.Group Post(Entities.Entities.Group value)
         {
-            _context.Groups.Add(value);
+            try
+            {
+                if (string.IsNullOrEmpty(value.Name))
+                    throw new Exception("El nombre del grupo no puede ser nulo/vacío");
 
-            _context.SaveChanges();
+                var group = _context.Groups
+                    .Where(g => g.Name == value.Name)
+                    .AsNoTracking()
+                    .ToList().FirstOrDefault();
+
+                if (group == null)
+                {
+                    var result = _context.Groups.Add(value);
+
+                    _context.SaveChanges();
+
+                    return result.Entity;
+                }
+                else
+                {
+                    return group;
+                }
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }
+            
         }
 
         public void Put(int id, string value)

@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Player
@@ -54,7 +55,7 @@ namespace BusinessLogic.Player
 
                 // TO DO - Meter expresión regular para comprobar NIF (nos podemos
                 // fijar en la API, solo un poquito)
-                if (value.NIF.Length != 9)
+                if (!Regex.IsMatch(value.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
                     throw new Exception("El formato del DNI no es correcto.");
 
                 // Guardamos el jugador:

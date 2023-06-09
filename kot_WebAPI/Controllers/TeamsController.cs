@@ -47,7 +47,24 @@ namespace kot_WebAPI.Controllers
             try
             {
                 var team = _teamsBll.Get(name);
+
                 return Ok(team);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        // GET api/TeamsController>/5
+        [HttpGet("getTeamByGroup/{groupName}")]
+        public IActionResult GetByGroup(string groupName)
+        {
+            try
+            {
+                var teams = _teamsBll.GetByGroup(groupName);
+
+                return Ok(teams);
             }
             catch (Exception ex)
             {

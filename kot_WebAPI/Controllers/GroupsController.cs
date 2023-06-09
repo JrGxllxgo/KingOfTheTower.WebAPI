@@ -60,13 +60,16 @@ namespace kot_WebAPI.Controllers
         {
             try
             {
-                _groupsBll.Post(value);
+                if (value == null)
+                    return BadRequest();
 
-                return Ok();
+                var result = _groupsBll.Post(value);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
     }

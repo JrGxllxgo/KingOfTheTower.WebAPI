@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace Entities.Entities
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Category { get; set; }
+        public string? Category { get; set; }
 
         public bool Pay { get; set; }
 
@@ -26,6 +27,9 @@ namespace Entities.Entities
 
         public int Classification_points { get; set;}
 
-        public Group Group { get; set; }
+        [ForeignKey("GroupId")]
+        public int GroupId { get; set; }
+
+        public Group? Group { get; set; }
     }
 }
