@@ -48,6 +48,13 @@ namespace BusinessLogic.User
             return user;
         }
 
+        public IEnumerable<Entities.Entities.User> GetByRole(string role)
+        {
+            var userList = _context.Users.Where(r => r.Role == role).ToList();
+
+            return userList;
+        }
+
         public Entities.Entities.User Post(Entities.Entities.User value)
         {
             try

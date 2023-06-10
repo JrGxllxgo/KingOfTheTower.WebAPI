@@ -56,6 +56,22 @@ namespace kot_WebAPI.Controllers
             }
         }
 
+        // GET api/<UsersController>/5
+        [HttpGet("getGameByCourt/{court}")]
+        public IActionResult GetGamesByCourt(int court)
+        {
+            try
+            {
+                var game = _gamesBll.GetByCourt(court);
+
+                return Ok(game);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
         // POST api/<UsersController>
         [HttpPost("register")]
         public IActionResult Register([FromBody] Game value)
@@ -74,8 +90,18 @@ namespace kot_WebAPI.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, int score1, int score2)
         {
+            try
+            {
+                var gameUpdated = _gamesBll.Put(id, score1, score2);
+
+                return Ok(gameUpdated);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // DELETE api/<UsersController>/5

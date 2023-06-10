@@ -26,6 +26,10 @@ namespace Entities.Entities
 
         public int Score2 { get; set; }
 
+        public int Score1Old { get; set; }
+
+        public int Score2Old { get; set; }
+
         public int Court { get; set; }
 
         public DateTime Schedule { get; set; }

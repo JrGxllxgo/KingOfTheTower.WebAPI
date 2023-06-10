@@ -1,4 +1,5 @@
 ﻿using Entities.AppContext;
+using Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,13 @@ namespace BusinessLogic.Game
             return user;
         }
 
+        public IEnumerable<Entities.Entities.Game> GetByCourt(int court)
+        {
+            var gameList = _context.Games.Where(g => g.Court == court).ToList();
+
+            return gameList;
+        }
+
         public void Post(Entities.Entities.Game value)
         {
             _context.Games.Add(value);
@@ -50,9 +58,32 @@ namespace BusinessLogic.Game
             _context.SaveChanges();
         }
 
-        public void Put(int id, string value)
+        public Entities.Entities.Game Put(int id, int score1, int score2)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // recuperar el partido que tiene id = id
+                var game = _context.Games.Where(g => g.Id == id).ToList().FirstOrDefault();
+                // actualizar los campos de score old con los valoes score que traifo de db
+                var score1old = game.Score1;
+                var score2old = game.Score2;
+
+                game.Score1Old = score1old;
+                game.Score2Old = score2old;
+                // actualizar los valores normales con los datos nuevos
+                game.Score1 = score1;
+                game.Score2 = score2;
+                // hacer un update y savechanges
+                _context.Update(game);
+                _context.SaveChanges();
+
+                return game;
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }
         }
     }
 }

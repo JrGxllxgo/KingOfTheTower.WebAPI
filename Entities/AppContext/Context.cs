@@ -31,15 +31,17 @@ namespace Entities.AppContext
             #region Constraints
                 modelBuilder.Entity<Player>().HasIndex(p => p.NIF).IsUnique();
                 modelBuilder.Entity<User>().HasIndex(u => u.Mail).IsUnique();
+
+            //modelBuilder.Entity<Game>(entry => { entry.ToTable("Game", tb => tb.HasTrigger("T_update_game")); });
             #endregion
 
             #region Group default values
 
-            var groupMascA = new Group() { Id = 1, Name = "Masculino A" };
-            var groupMascB = new Group() { Id = 2, Name = "Masculino B" };
-            var groupMascC = new Group() { Id = 3, Name = "Masculino C" };
-            var groupFemA = new Group() { Id = 4, Name = "Femenino A" };
-            var groupFemB = new Group() { Id = 5, Name = "Femenino B" };
+            var groupMascA = new Group() { Id = 1, Name = "MasculinoA" };
+            var groupMascB = new Group() { Id = 2, Name = "MasculinoB" };
+            var groupMascC = new Group() { Id = 3, Name = "MasculinoC" };
+            var groupFemA = new Group() { Id = 4, Name = "FemeninoA" };
+            var groupFemB = new Group() { Id = 5, Name = "FemeninoB" };
 
             #endregion
 

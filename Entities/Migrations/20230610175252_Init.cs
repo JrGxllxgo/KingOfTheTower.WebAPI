@@ -49,7 +49,7 @@ namespace Entities.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +73,7 @@ namespace Entities.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +107,8 @@ namespace Entities.Migrations
                     Team2Id = table.Column<int>(type: "int", nullable: false),
                     Score1 = table.Column<int>(type: "int", nullable: false),
                     Score2 = table.Column<int>(type: "int", nullable: false),
+                    Score1Old = table.Column<int>(type: "int", nullable: false),
+                    Score2Old = table.Column<int>(type: "int", nullable: false),
                     Court = table.Column<int>(type: "int", nullable: false),
                     Schedule = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StaffId = table.Column<int>(type: "int", nullable: false)
@@ -139,11 +141,11 @@ namespace Entities.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Masculino A" },
-                    { 2, "Masculino B" },
-                    { 3, "Masculino C" },
-                    { 4, "Femenino A" },
-                    { 5, "Femenino B" }
+                    { 1, "MasculinoA" },
+                    { 2, "MasculinoB" },
+                    { 3, "MasculinoC" },
+                    { 4, "FemeninoA" },
+                    { 5, "FemeninoB" }
                 });
 
             migrationBuilder.InsertData(
@@ -178,11 +180,11 @@ namespace Entities.Migrations
 
             migrationBuilder.InsertData(
                 table: "Games",
-                columns: new[] { "Id", "Court", "Schedule", "Score1", "Score2", "StaffId", "Team1Id", "Team2Id" },
+                columns: new[] { "Id", "Court", "Schedule", "Score1", "Score1Old", "Score2", "Score2Old", "StaffId", "Team1Id", "Team2Id" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 15, 2, 1, 2 },
-                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 21, 1, 2, 3, 1 }
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 0, 15, 0, 2, 1, 2 },
+                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 21, 0, 1, 0, 2, 3, 1 }
                 });
 
             migrationBuilder.InsertData(

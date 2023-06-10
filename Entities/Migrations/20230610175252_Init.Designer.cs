@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230609173633_Init")]
+    [Migration("20230610175252_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -42,7 +42,13 @@ namespace Entities.Migrations
                     b.Property<int>("Score1")
                         .HasColumnType("int");
 
+                    b.Property<int>("Score1Old")
+                        .HasColumnType("int");
+
                     b.Property<int>("Score2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score2Old")
                         .HasColumnType("int");
 
                     b.Property<int>("StaffId")
@@ -71,7 +77,9 @@ namespace Entities.Migrations
                             Court = 1,
                             Schedule = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score1 = 2,
+                            Score1Old = 0,
                             Score2 = 15,
+                            Score2Old = 0,
                             StaffId = 2,
                             Team1Id = 1,
                             Team2Id = 2
@@ -82,7 +90,9 @@ namespace Entities.Migrations
                             Court = 2,
                             Schedule = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score1 = 21,
+                            Score1Old = 0,
                             Score2 = 1,
+                            Score2Old = 0,
                             StaffId = 2,
                             Team1Id = 3,
                             Team2Id = 1
@@ -108,27 +118,27 @@ namespace Entities.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Masculino A"
+                            Name = "MasculinoA"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Masculino B"
+                            Name = "MasculinoB"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Masculino C"
+                            Name = "MasculinoC"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Femenino A"
+                            Name = "FemeninoA"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Femenino B"
+                            Name = "FemeninoB"
                         });
                 });
 

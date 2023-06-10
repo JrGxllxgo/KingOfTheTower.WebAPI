@@ -57,6 +57,21 @@ namespace kot_WebAPI.Controllers
             }            
         }
 
+        // GET api/<UsersController>/5
+        [HttpGet("getUserByRole/{role}")]
+        public IActionResult GetByRole(string role)
+        {
+            try
+            {
+                var user = _usersBll.GetByRole(role);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
         // POST api/<UsersController>
         [HttpPost("register")]
         public IActionResult Register([FromBody] User value)
