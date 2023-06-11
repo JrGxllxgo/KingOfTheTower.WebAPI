@@ -51,13 +51,35 @@ namespace BusinessLogic.Team
             return teams;
         }
 
-        public void Post(Entities.Entities.Team value)
+        public Entities.Entities.Team Post(Entities.Entities.Team value)
         {
-            var context = new Context();
+            try
+            {
+                if (string.IsNullOrEmpty(value.Name))
+                    throw new Exception("El nombre del equipo no puede ser nulo/vacío");
 
-            context.Teams.Add(value);
-            
-            context.SaveChanges();
+                var team = _context.Teams
+                    .Where(t => t.Name == value.Name)
+                    .AsNoTracking()
+                    .ToList().FirstOrDefault();
+
+                if (team == null)
+                {
+                    var result = _context.Teams.Add(value);
+                    _context.SaveChanges();
+                    return result.Entity;
+                }
+                else
+                {
+                    return team;
+                }
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }
+
         }
 
         public void Put(int id, string value)

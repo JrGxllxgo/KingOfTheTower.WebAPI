@@ -78,13 +78,13 @@ namespace kot_WebAPI.Controllers
         {
             try
             {
-                _teamsBll.Post(value);
+                var result = _teamsBll.Post(value);
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
 

@@ -56,6 +56,21 @@ namespace kot_WebAPI.Controllers
             }
         }
 
+        [HttpGet("getGameByStaff/{staffId}")]
+        public IActionResult GetGetByStaff(int staffId)
+        {
+            try
+            {
+                var gameList = _gamesBll.GetByStaff(staffId);
+
+                return Ok(gameList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
         // GET api/<UsersController>/5
         [HttpGet("getGameByCourt/{court}")]
         public IActionResult GetGamesByCourt(int court)

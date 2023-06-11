@@ -44,6 +44,13 @@ namespace BusinessLogic.Game
             return user;
         }
 
+        public IEnumerable<Entities.Entities.Game> GetByStaff(int staffId)
+        {
+            var gameList = _context.Games.Where(g => g.StaffId == staffId).ToList();
+
+            return gameList;
+        }
+
         public IEnumerable<Entities.Entities.Game> GetByCourt(int court)
         {
             var gameList = _context.Games.Where(g => g.Court == court).ToList();

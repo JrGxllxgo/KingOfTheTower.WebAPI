@@ -11,7 +11,7 @@ namespace BusinessLogic.Team
         IEnumerable<Entities.Entities.Team> Get();
         Entities.Entities.Team Get(string name);
         IEnumerable<Entities.Entities.Team> GetByGroup(string groupName);
-        void Post(Entities.Entities.Team value);
+        Entities.Entities.Team Post(Entities.Entities.Team value);
         void Put(int id, string value);
         void Delete(int id);
     }
