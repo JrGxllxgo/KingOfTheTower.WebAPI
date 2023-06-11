@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230610175252_Init")]
+    [Migration("20230611104952_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -68,7 +68,10 @@ namespace Entities.Migrations
 
                     b.HasIndex("Team2Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", null, t =>
+                        {
+                            t.HasTrigger("T_update_game");
+                        });
 
                     b.HasData(
                         new

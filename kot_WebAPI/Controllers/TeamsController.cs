@@ -56,6 +56,21 @@ namespace kot_WebAPI.Controllers
             }
         }
 
+        [HttpGet("getTeamClassByGroup/{groupName}")]
+        public IActionResult GetClassif(string groupName)
+        {
+            try
+            {
+                var teams = _teamsBll.GetClassif(groupName);
+
+                return Ok(teams);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
         // GET api/TeamsController>/5
         [HttpGet("getTeamByGroup/{groupName}")]
         public IActionResult GetByGroup(string groupName)

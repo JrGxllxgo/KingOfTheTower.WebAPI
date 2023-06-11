@@ -73,7 +73,7 @@ namespace Entities.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -65,7 +65,10 @@ namespace Entities.Migrations
 
                     b.HasIndex("Team2Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", null, t =>
+                        {
+                            t.HasTrigger("T_update_game");
+                        });
 
                     b.HasData(
                         new

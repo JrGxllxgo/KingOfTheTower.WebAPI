@@ -57,7 +57,7 @@ namespace kot_WebAPI.Controllers
 
         // POST api/<PlayersController>
         [HttpPost("register")]
-        public IActionResult Post([FromBody] Player value)
+        public IActionResult Post([FromBody] IEnumerable<Player> value)
         {
             try
             {

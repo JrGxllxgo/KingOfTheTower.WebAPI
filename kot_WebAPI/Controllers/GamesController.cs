@@ -104,7 +104,7 @@ namespace kot_WebAPI.Controllers
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}/{score1}/{score2}")]
         public IActionResult Put(int id, int score1, int score2)
         {
             try

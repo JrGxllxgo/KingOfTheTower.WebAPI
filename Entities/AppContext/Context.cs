@@ -32,7 +32,8 @@ namespace Entities.AppContext
                 modelBuilder.Entity<Player>().HasIndex(p => p.NIF).IsUnique();
                 modelBuilder.Entity<User>().HasIndex(u => u.Mail).IsUnique();
 
-            //modelBuilder.Entity<Game>(entry => { entry.ToTable("Game", tb => tb.HasTrigger("T_update_game")); });
+            modelBuilder.Entity<Game>(entry => { entry.ToTable("Games", tb => tb.HasTrigger("T_update_game")); });
+
             #endregion
 
             #region Group default values
@@ -55,9 +56,9 @@ namespace Entities.AppContext
 
             #region Teams default values
 
-            var teamMasc1A = new Team() { Id = 1, Name = "teamMasc1A", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascA.Id };
-            var teamMasc2A = new Team() { Id = 2, Name = "teamMasc2A", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascA.Id };
-            var teamMasc3A = new Team() { Id = 3, Name = "teamMasc3A", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascA.Id };
+            var teamMasc1A = new Team() { Id = 1, Name = "teamMasc1A", Category = "Masculino", Pay = false, Wins = 0, Defeats = 2, Points_diff = -33, Classification_points = 0, GroupId = groupMascA.Id };
+            var teamMasc2A = new Team() { Id = 2, Name = "teamMasc2A", Category = "Masculino", Pay = false, Wins = 1, Defeats = 0, Points_diff = 13, Classification_points = 3, GroupId = groupMascA.Id };
+            var teamMasc3A = new Team() { Id = 3, Name = "teamMasc3A", Category = "Masculino", Pay = false, Wins = 1, Defeats = 0, Points_diff = 20, Classification_points = 3, GroupId = groupMascA.Id };
             var teamMasc1B = new Team() { Id = 4, Name = "teamMasc1B", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascB.Id };
             var teamMasc2B = new Team() { Id = 5, Name = "teamMasc2B", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascB.Id };
             var teamMasc3B = new Team() { Id = 6, Name = "teamMasc3B", Category = "Masculino", Pay = false, Wins = 0, Defeats = 0, Points_diff = 0, Classification_points = 0, GroupId = groupMascB.Id };
