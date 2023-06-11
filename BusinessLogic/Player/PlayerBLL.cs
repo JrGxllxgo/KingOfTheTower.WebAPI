@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Entities.AppContext;
+using Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,26 +47,21 @@ namespace BusinessLogic.Player
             return player;
         }
 
-        public Post(IEnumerable<Entities.Entities.Player> value)
+        public Entities.Entities.Player Post(Entities.Entities.Player value)
         {
             try
             {
-                foreach (var player in value)
-                {
-                    if (string.IsNullOrEmpty(player.NIF))
-                        throw new Exception("El DNI del jugador no puede ser nulo/vacio:");
+                if (string.IsNullOrEmpty(value.NIF))
+                    throw new Exception("El DNI del jugador no puede ser nulo/vacio:");
 
-                    if (!Regex.IsMatch(player.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
-                        throw new Exception("El formato del DNI no es correcto.");
+                if (!Regex.IsMatch(value.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
+                    throw new Exception("El formato del DNI no es correcto.");
 
-                    // Guardamos el jugador:
-                    var result  = _context.Players.Add(player);
-                    
-                }
-
+                // Guardamos el jugador:
+                var result = _context.Players.Add(value);             
                 _context.SaveChanges();
 
-                //return result.Entity;
+                return result.Entity;
             }
             catch (Exception ex)
             {
