@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Entities.AppContext;
 using Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -68,6 +69,56 @@ namespace BusinessLogic.Player
                 var m = ex.Message;
                 throw;
             }           
+        }
+
+        public IEnumerable<Entities.Entities.Player> PostSeveralPlayers(IEnumerable<Entities.Entities.Player> value)
+        {
+            try
+            {
+                // 1) Comprobamos que la información de los
+                // jugadores es válida
+
+                foreach (var player in value)
+                {
+                    if (string.IsNullOrEmpty(player.NIF))
+                        throw new Exception($"El DNI del jugador {player.Name} " +
+                            "no puede ser nulo/vacio:");
+
+                    if (!Regex.IsMatch(player.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
+                        throw new Exception($"El formato del DNI del jugador {player.Name}" +
+                            " no es correcto.");
+                }
+
+                // 2) Si la validación del DNI no hay saltado nnguna excepción
+                // se pueden guardar los jugadores en la base de datos
+
+                _context.Players.AddRange(value);
+                _context.SaveChanges();
+
+                // 3) Cuando se realiza un guardado "masivo" EF Core no nos
+                // devuelve la infrmación actualizada de lo guardado. Si queremos
+                // devolver las entidades guardadas con los valores de id que le 
+                // ha asignado la bd tenemos que traernoslo
+
+                // creamos una lista auxiliar con los DNIs donde guardaremos
+                // los NIF que se han enviado y lo utilizaremos como filtro
+                var auxNifList = new List<string>();
+
+                value.ToList().ForEach(p => auxNifList.Add(p.NIF));
+
+                var result = _context.Players
+                    .Where(p => auxNifList.Contains(p.NIF))
+                    .AsNoTracking()
+                    .ToList();
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }
         }
 
         public void Put(int id, string value)

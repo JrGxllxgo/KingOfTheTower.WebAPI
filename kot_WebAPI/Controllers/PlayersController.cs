@@ -74,6 +74,25 @@ namespace kot_WebAPI.Controllers
             }
         }
 
+        // POST api/<PlayersController>
+        [HttpPost("registerSeveral")]
+        public IActionResult PostSeveral([FromBody] IEnumerable<Player> value)
+        {
+            try
+            {
+                if (null == value)
+                    return BadRequest();
+
+                var result = _playersBll.PostSeveralPlayers(value);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         // PUT api/<PlayersController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
