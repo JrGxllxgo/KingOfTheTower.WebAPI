@@ -46,23 +46,26 @@ namespace BusinessLogic.Player
             return player;
         }
 
-        public Entities.Entities.Player Post(Entities.Entities.Player value)
+        public Post(IEnumerable<Entities.Entities.Player> value)
         {
             try
             {
-                if (string.IsNullOrEmpty(value.NIF))
-                    throw new Exception("El DNI del jugador no puede ser nulo/vacio:");
+                foreach (var player in value)
+                {
+                    if (string.IsNullOrEmpty(player.NIF))
+                        throw new Exception("El DNI del jugador no puede ser nulo/vacio:");
 
-                // TO DO - Meter expresión regular para comprobar NIF (nos podemos
-                // fijar en la API, solo un poquito)
-                if (!Regex.IsMatch(value.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
-                    throw new Exception("El formato del DNI no es correcto.");
+                    if (!Regex.IsMatch(player.NIF, @"^[XYZ]?\d{7,8}[A-Z]$"))
+                        throw new Exception("El formato del DNI no es correcto.");
 
-                // Guardamos el jugador:
-                var result  = _context.Players.Add(value);
+                    // Guardamos el jugador:
+                    var result  = _context.Players.Add(player);
+                    
+                }
+
                 _context.SaveChanges();
 
-                return result.Entity; 
+                //return result.Entity;
             }
             catch (Exception ex)
             {

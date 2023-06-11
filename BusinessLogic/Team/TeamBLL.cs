@@ -37,6 +37,13 @@ namespace BusinessLogic.Team
             return teamList;
         }
 
+        public IEnumerable<Entities.Entities.Team> GetClassif(string groupName)
+        {
+            var teamList = _context.Teams.Where(t => t.Group.Name == groupName).OrderByDescending(c => c.Classification_points).ToList();
+
+            return teamList;
+        }
+
         public Entities.Entities.Team Get(string name)
         {
             var team = _context.Teams.Where(t => t.Name == name).FirstOrDefault();

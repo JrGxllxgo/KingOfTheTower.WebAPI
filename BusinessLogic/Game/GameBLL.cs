@@ -1,5 +1,6 @@
 ﻿using Entities.AppContext;
 using Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,16 +47,38 @@ namespace BusinessLogic.Game
 
         public IEnumerable<Entities.Entities.Game> GetByStaff(int staffId)
         {
-            var gameList = _context.Games.Where(g => g.StaffId == staffId).ToList();
+            try
+            {
+                var gameList = _context.Games
+                .Include(g => g.Team1)
+                .Include(g => g.Team2)
+                .Where(g => g.StaffId == staffId).ToList();
 
-            return gameList;
+                return gameList;
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }            
         }
 
         public IEnumerable<Entities.Entities.Game> GetByCourt(int court)
         {
-            var gameList = _context.Games.Where(g => g.Court == court).ToList();
+            try
+            {
+                var gameList = _context.Games
+                    .Include(g => g.Team1)
+                    .Include(g => g.Team2)
+                    .Where(g => g.Court == court).ToList();
 
-            return gameList;
+                return gameList;
+            }
+            catch (Exception ex)
+            {
+                var m = ex.Message;
+                throw;
+            }            
         }
 
         public void Post(Entities.Entities.Game value)
@@ -70,7 +93,10 @@ namespace BusinessLogic.Game
             try
             {
                 // recuperar el partido que tiene id = id
-                var game = _context.Games.Where(g => g.Id == id).ToList().FirstOrDefault();
+                var game = _context.Games
+                    .Include(t => t.Team1)
+                    .Include(t => t.Team2)
+                    .Where(g => g.Id == id).ToList().FirstOrDefault();
                 // actualizar los campos de score old con los valoes score que traifo de db
                 var score1old = game.Score1;
                 var score2old = game.Score2;
