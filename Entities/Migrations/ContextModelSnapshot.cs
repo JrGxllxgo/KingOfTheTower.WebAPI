@@ -355,36 +355,36 @@ namespace Entities.Migrations
                             Id = 1,
                             Category = "Masculino",
                             Classification_points = 0,
-                            Defeats = 0,
+                            Defeats = 2,
                             GroupId = 1,
                             Name = "teamMasc1A",
                             Pay = false,
-                            Points_diff = 0,
+                            Points_diff = -33,
                             Wins = 0
                         },
                         new
                         {
                             Id = 2,
                             Category = "Masculino",
-                            Classification_points = 0,
+                            Classification_points = 3,
                             Defeats = 0,
                             GroupId = 1,
                             Name = "teamMasc2A",
                             Pay = false,
-                            Points_diff = 0,
-                            Wins = 0
+                            Points_diff = 13,
+                            Wins = 1
                         },
                         new
                         {
                             Id = 3,
                             Category = "Masculino",
-                            Classification_points = 0,
+                            Classification_points = 3,
                             Defeats = 0,
                             GroupId = 1,
                             Name = "teamMasc3A",
                             Pay = false,
-                            Points_diff = 0,
-                            Wins = 0
+                            Points_diff = 20,
+                            Wins = 1
                         },
                         new
                         {

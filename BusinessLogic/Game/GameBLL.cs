@@ -81,11 +81,34 @@ namespace BusinessLogic.Game
             }            
         }
 
-        public void Post(Entities.Entities.Game value)
+        public Entities.Entities.Game Post(Entities.Entities.Game value)
         {
-            _context.Games.Add(value);
+            var team1_db = _context.Teams.Where(g => g.Id == value.Team1Id).FirstOrDefault();
+            var team2_db = _context.Teams.Where(g => g.Id == value.Team2Id).FirstOrDefault();
+
+            var staff = _context.Users.Where(s => s.Id == value.StaffId).FirstOrDefault();
+
+            var auxGame = new Entities.Entities.Game
+            {
+                Team1 = team1_db,
+                Team2 = team2_db,
+                Staff = staff,
+                Schedule = value.Schedule,
+                Court = value.Court,
+                Score1 = value.Score1,
+                Score2 = value.Score2,
+                Score1Old = 0,
+                Score2Old = 0,
+                Team1Id = team1_db.Id,
+                Team2Id = team2_db.Id,
+                StaffId = staff.Id
+            };
+
+            var result = _context.Games.Add(auxGame);
 
             _context.SaveChanges();
+
+            return result.Entity;
         }
 
         public Entities.Entities.Game Put(int id, int score1, int score2)

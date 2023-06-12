@@ -73,7 +73,7 @@ namespace Entities.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,9 +163,9 @@ namespace Entities.Migrations
                 columns: new[] { "Id", "Category", "Classification_points", "Defeats", "GroupId", "Name", "Pay", "Points_diff", "Wins" },
                 values: new object[,]
                 {
-                    { 1, "Masculino", 0, 0, 1, "teamMasc1A", false, 0, 0 },
-                    { 2, "Masculino", 0, 0, 1, "teamMasc2A", false, 0, 0 },
-                    { 3, "Masculino", 0, 0, 1, "teamMasc3A", false, 0, 0 },
+                    { 1, "Masculino", 0, 2, 1, "teamMasc1A", false, -33, 0 },
+                    { 2, "Masculino", 3, 0, 1, "teamMasc2A", false, 13, 1 },
+                    { 3, "Masculino", 3, 0, 1, "teamMasc3A", false, 20, 1 },
                     { 4, "Masculino", 0, 0, 2, "teamMasc1B", false, 0, 0 },
                     { 5, "Masculino", 0, 0, 2, "teamMasc2B", false, 0, 0 },
                     { 6, "Masculino", 0, 0, 2, "teamMasc3B", false, 0, 0 },

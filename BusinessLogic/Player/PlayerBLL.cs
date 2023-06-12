@@ -89,6 +89,18 @@ namespace BusinessLogic.Player
                             " no es correcto.");
                 }
 
+                // *)
+                var group = _context.Groups.Where(g => g.Name == value.FirstOrDefault().Team.Group.Name).FirstOrDefault();
+
+                var auxTeam = value.FirstOrDefault().Team;
+                auxTeam.Group = group;
+                
+                var resultTeam = _context.Teams.Add(auxTeam);
+                var team = resultTeam.Entity;
+                
+                value.ToList().ForEach(p => p.Team = team);
+
+
                 // 2) Si la validación del DNI no hay saltado nnguna excepción
                 // se pueden guardar los jugadores en la base de datos
 

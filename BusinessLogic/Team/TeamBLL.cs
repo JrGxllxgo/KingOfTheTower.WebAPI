@@ -32,7 +32,12 @@ namespace BusinessLogic.Team
 
         public IEnumerable<Entities.Entities.Team> Get()
         {
-            var teamList = _context.Teams.ToList();
+            var teamList = _context.Teams
+                .Include(t => t.Group)
+                .OrderBy(t => t.Group.Id)
+                .OrderByDescending(c => c.Classification_points)
+                .OrderByDescending(ba => ba.Points_diff)
+                .ToList();
 
             return teamList;
         }

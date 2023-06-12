@@ -93,9 +93,9 @@ namespace kot_WebAPI.Controllers
         {
             try
             {
-                _gamesBll.Post(value);
+                var result = _gamesBll.Post(value);
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-ALTER TRIGGER [dbo].[T_update_game]
+CREATE TRIGGER [dbo].[T_update_game]
    ON  [dbo].[Games] 
    AFTER UPDATE
 AS 
