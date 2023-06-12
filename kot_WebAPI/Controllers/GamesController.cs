@@ -1,7 +1,9 @@
 ﻿using BusinessLogic.Game;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
-
+using System.ComponentModel;
+//AUTHOR: José Ramón Gallego
+//PROJECT: KingOfTheTower.WebAPI
 namespace kot_WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -26,6 +28,7 @@ namespace kot_WebAPI.Controllers
 
         // GET: api/<UsersController>
         [HttpGet("getAllGames")]
+        [Description("Enpoint that return a list with all games")]
         public IActionResult Get()
         {
             try
@@ -42,6 +45,7 @@ namespace kot_WebAPI.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("getGameById/{id}")]
+        [Description("Enpoint that return a list with all games and filter it by the staff id")]
         public IActionResult Get(int id)
         {
             try
@@ -57,6 +61,7 @@ namespace kot_WebAPI.Controllers
         }
 
         [HttpGet("getGameByStaff/{staffId}")]
+        [Description("Enpoint that return a list with all games and filter it by the staff id")]
         public IActionResult GetGetByStaff(int staffId)
         {
             try
@@ -73,6 +78,7 @@ namespace kot_WebAPI.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("getGameByCourt/{court}")]
+        [Description("Enpoint that return a list with all games and filter it by the court")]
         public IActionResult GetGamesByCourt(int court)
         {
             try
@@ -89,6 +95,7 @@ namespace kot_WebAPI.Controllers
 
         // POST api/<UsersController>
         [HttpPost("register")]
+        [Description("Enpoint that receive a Game object and insert into our db")]
         public IActionResult Register([FromBody] Game value)
         {
             try
@@ -105,6 +112,7 @@ namespace kot_WebAPI.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}/{score1}/{score2}")]
+        [Description("Enpoint that update a game with the id given and scores given on the request")]
         public IActionResult Put(int id, int score1, int score2)
         {
             try
@@ -121,6 +129,7 @@ namespace kot_WebAPI.Controllers
 
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
+        [Description("Enpoint that delete the game with an id")]
         public IActionResult Delete(int id)
         {
             try
