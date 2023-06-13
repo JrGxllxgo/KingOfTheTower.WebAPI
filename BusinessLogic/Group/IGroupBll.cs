@@ -12,7 +12,7 @@ namespace BusinessLogic.Group
 
         Entities.Entities.Group Get(string name);
 
-        void Post(Entities.Entities.Group value);
+        Entities.Entities.Group Post(Entities.Entities.Group value);
 
         void Put(int id, string value);
 

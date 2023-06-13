@@ -1,7 +1,9 @@
 ﻿using BusinessLogic.Group;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
-
+using System.ComponentModel;
+//AUTHOR: José Ramón Gallego
+//PROJECT: KingOfTheTower.WebAPI
 namespace kot_WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -25,6 +27,7 @@ namespace kot_WebAPI.Controllers
 
         //GET: api/<GroupsController>
         [HttpGet("getAllGroups")]
+        [Description("Enpoint that return a list with all groups")]
         public IActionResult Get()
         {
             try
@@ -41,6 +44,7 @@ namespace kot_WebAPI.Controllers
 
         // GET api/<GroupsController>/5
         [HttpGet("getGroupByName/{name}")]
+        [Description("Enpoint that return a list with all groups by name")]
         public IActionResult Get(string name)
         {
             try
@@ -56,17 +60,21 @@ namespace kot_WebAPI.Controllers
 
         // POST api/<GroupsController>
         [HttpPost("register")]
+        [Description("Enpoint that creates a new group")]
         public IActionResult Register([FromBody] Group value)
         {
             try
             {
-                _groupsBll.Post(value);
+                if (value == null)
+                    return BadRequest();
 
-                return Ok();
+                var result = _groupsBll.Post(value);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
     }

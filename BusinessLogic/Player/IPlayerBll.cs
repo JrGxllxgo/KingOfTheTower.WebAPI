@@ -11,6 +11,7 @@ namespace BusinessLogic.Player
         IEnumerable<Entities.Entities.Player> Get();
         Entities.Entities.Player Get(string nif);
         Entities.Entities.Player Post(Entities.Entities.Player value);
+        IEnumerable<Entities.Entities.Player> PostSeveralPlayers(IEnumerable<Entities.Entities.Player> value);
         void Put(int id, string value);
         void Delete(string nif);
     }

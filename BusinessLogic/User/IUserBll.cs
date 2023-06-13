@@ -12,6 +12,8 @@ namespace BusinessLogic.User
 
         Entities.Entities.User Get(string mail);
 
+        IEnumerable<Entities.Entities.User> GetByRole(string role);
+
         Entities.Entities.User Post(Entities.Entities.User value);
 
         void Put(int id, string value);
