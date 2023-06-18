@@ -23,7 +23,7 @@ namespace Entities.AppContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=tcp:sql-server-kot.database.windows.net,1433;Initial Catalog=tfc-kingofthetower-db;Persist Security Info=False;User ID=admin-gallego;Password=@tfckot23;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 60;");
+            optionsBuilder.UseSqlServer();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
